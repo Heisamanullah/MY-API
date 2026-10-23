@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Week 2 API</title>
+  </head>
+  <body>
+    <h1>My Week 2 API!</h1>
+
+    <form id="userForm">
+      <input id="name" placeholder="Name" required />
+      <input id="email" type="email" placeholder="Email" required />
+      <button type="submit">Send</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+      document
+        .getElementById("userForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+
+          const response = await fetch("/user", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email }),
+          });
+
+          const result = await response.text();
+
+          document.getElementById("result").textContent = result;
+        });
+    </script>
+  </body>
+</html>
